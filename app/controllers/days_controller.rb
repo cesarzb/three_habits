@@ -15,7 +15,7 @@ class DaysController < ApplicationController
 
   # POST /days
   def create
-    @day = Day.new(date: Time.now)
+    @day = Day.new(date: Time.now.beginning_of_day)
 
     if @day.save
       render json: @day, status: :created, location: @day
