@@ -15,14 +15,6 @@ RSpec.describe DaysController, type: :routing do
       expect(post: "/days").to route_to("days#create")
     end
 
-    it "routes to #update via PUT" do
-      expect(put: "/days/1").to route_to("days#update", id: "1")
-    end
-
-    it "routes to #update via PATCH" do
-      expect(patch: "/days/1").to route_to("days#update", id: "1")
-    end
-
     it "routes to #destroy" do
       expect(delete: "/days/1").to route_to("days#destroy", id: "1")
     end
