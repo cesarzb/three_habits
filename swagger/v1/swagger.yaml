@@ -1,0 +1,94 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/activities":
+    post:
+      summary: create activity
+      tags:
+      - Activities
+      responses:
+        '200':
+          description: successful
+  "/api/v1/activities/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    delete:
+      summary: delete activity
+      tags:
+      - Activities
+      responses:
+        '200':
+          description: successful
+  "/api/v1/days":
+    get:
+      summary: list days
+      tags:
+      - Days
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create day
+      tags:
+      - Days
+      responses:
+        '200':
+          description: successful
+  "/api/v1/days/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show day
+      tags:
+      - Days
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete day
+      tags:
+      - Days
+      responses:
+        '200':
+          description: successful
+  "/api/v1/sleeps":
+    post:
+      summary: create sleep
+      tags:
+      - Sleeps
+      responses:
+        '200':
+          description: successful
+  "/api/v1/sleeps/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    delete:
+      summary: delete sleep
+      tags:
+      - Sleeps
+      responses:
+        '200':
+          description: successful
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
