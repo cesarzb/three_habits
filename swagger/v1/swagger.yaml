@@ -40,8 +40,17 @@ paths:
       tags:
       - Days
       responses:
-        '200':
-          description: successful
+        '201':
+          description: created
+          content:
+            application/json:
+              examples:
+                day:
+                  value:
+                    id: 4
+                    date: '2023-03-28T22:00:00.000Z'
+                    created_at: '2023-03-29T14:10:43.226Z'
+                    updated_at: '2023-03-29T14:10:43.226Z'
   "/api/v1/days/{id}":
     parameters:
     - name: id
@@ -61,6 +70,43 @@ paths:
       summary: delete day
       tags:
       - Days
+      responses:
+        '200':
+          description: successful
+  "/api/v1/hydrations":
+    post:
+      summary: create hydration
+      tags:
+      - Hydrations
+      responses:
+        '200':
+          description: successful
+  "/api/v1/hydrations/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    patch:
+      summary: update hydration
+      tags:
+      - Hydrations
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update hydration
+      tags:
+      - Hydrations
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete hydration
+      tags:
+      - Hydrations
       responses:
         '200':
           description: successful
@@ -88,7 +134,7 @@ paths:
         '200':
           description: successful
 servers:
-- url: https://{defaultHost}
+- url: http://{defaultHost}
   variables:
     defaultHost:
-      default: www.example.com
+      default: localhost:3000

@@ -20,7 +20,7 @@ module Api
         @day = Day.new(date: Time.now.beginning_of_day)
 
         if @day.save
-          render json: @day, status: :created, location: @day
+          render json: @day, status: :created, location: api_v1_day_url(@day)
         else
           render json: @day.errors, status: :unprocessable_entity
         end
