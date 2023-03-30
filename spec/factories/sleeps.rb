@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :sleep do
-    datetime { "2023-03-28" }
-    length { "2023-03-28 20:34:29" }
+    length { "8:34:29" }
+    day { nil }
   end
 end

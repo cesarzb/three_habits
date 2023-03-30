@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_28_200722) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_30_054141) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,10 +32,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_200722) do
     t.integer "cups"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "day_id", null: false
+    t.index ["day_id"], name: "index_hydrations_on_day_id"
   end
 
   create_table "sleeps", force: :cascade do |t|
-    t.date "datetime"
     t.time "length"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -44,5 +45,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_200722) do
   end
 
   add_foreign_key "activities", "days"
+  add_foreign_key "hydrations", "days"
   add_foreign_key "sleeps", "days"
 end

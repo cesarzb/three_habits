@@ -2,17 +2,14 @@ module Api
     module V1
         class ActivitiesController < ApplicationController
             before_action :set_activity, only: :destroy
+            before_action :set_day, only: :create
 
             def create
-                day = Day.find_by(date: Time.now.beginning_of_day)
-                if !day
-                    day = Day.create(date: Time.now.beginning_of_day)
-                end
-
-                @activity = Activity.new(day: day, date: Time.now)
+                @day = Day.create(date: Time.now.beginning_of_day) unless @day
+                @activity = Activity.new(day: @day, date: Time.now)
                 
                 if @activity.save
-                    render json: @activity, status: :created, location: @activity
+                    render json: @activity, status: :created, location: api_v1_activity(@activity)
                 else
                     render json: @activity.errors, status: :unprocessable_entity
                 end

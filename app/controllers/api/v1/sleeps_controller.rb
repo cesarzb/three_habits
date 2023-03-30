@@ -2,17 +2,14 @@ module Api
     module V1
         class SleepsController < ApplicationController
             before_action :set_sleep, only: :destroy
+            before_action :set_day, only: :create
 
             def create
-                day = Day.find_by(date: Time.now.beginning_of_day)
-                if !day
-                    day = Day.create(date: Time.now.beginning_of_day)
-                end
-
-                @sleep = Sleep.new(day: day, date: Time.now)
+                @day = Day.create(date: Time.now.beginning_of_day) unless @day
+                @sleep = Sleep.new(day: @day, length: params[:length])
                 
                 if @sleep.save
-                    render json: @sleep, status: :created, location: @sleep
+                    render json: @sleep, status: :created, location: api_v1_sleep_path(@sleep)
                 else
                     render json: @sleep.errors, status: :unprocessable_entity
                 end

@@ -2,12 +2,10 @@ module Api
     module V1
         class ActivitiesController < ApplicationController
             before_action :set_hydration, only: :destroy
+            before_action :set_day, only: :create
 
             def create
-                day = Day.find_by(date: Time.now.beginning_of_day)
-                if !day
-                    day = Day.create(date: Time.now.beginning_of_day)
-                end
+                @day = Day.create(date: Time.now.beginning_of_day) unless @day
 
                 @hydration = Hydration.new(day: day, date: Time.now, cups: params[:cups])
                 
