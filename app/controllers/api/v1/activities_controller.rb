@@ -9,7 +9,7 @@ module Api
                 @activity = Activity.new(day: @day, date: Time.now)
                 
                 if @activity.save
-                    render json: @activity, status: :created, location: api_v1_activity(@activity)
+                    render json: @activity, status: :created, location: api_v1_activity_url(@activity)
                 else
                     render json: @activity.errors, status: :unprocessable_entity
                 end

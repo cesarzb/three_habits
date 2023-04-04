@@ -18,10 +18,10 @@ RSpec.describe 'api/v1/sleeps', type: :request do
 
     delete('delete sleep') do
       tags 'Sleeps'
-      response(204, 'no_content') do
+      response(204, 'no content') do
         let(:day) { create(:day) }
-        let!(:sleep) { create(:sleep, id: 123, day: day) }
         let(:id) { '123' }
+        let!(:sleep) { create(:sleep, id: id, day: day) }
         run_test!
       end
     end

@@ -6,7 +6,7 @@ RSpec.describe 'api/v1/activities', type: :request do
     
     post('create activity') do
       tags 'Activities'
-      response(200, 'successful') do
+      response(201, 'successful') do
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -26,16 +26,10 @@ RSpec.describe 'api/v1/activities', type: :request do
 
     delete('delete activity') do
       tags 'Activities'
-      response(200, 'successful') do
+      response(204, 'no content') do
+        let(:day) { create(:day) }
         let(:id) { '123' }
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
+        let!(:activity) { create(:activity, id: id, day: day) }
         run_test!
       end
     end

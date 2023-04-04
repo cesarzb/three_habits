@@ -46,6 +46,35 @@ RSpec.describe 'api/v1/days', type: :request do
         end
         run_test!
       end
+
+      response(422, 'unprocessable entity') do
+        let!(:day) { create(:day) }
+
+        schema type: :object,
+          properties: {
+            date: {
+              type: :array,
+              items: {
+                type: :string
+              }
+            }
+          }
+
+          example 'application/json', :date, {
+            "date": [
+              "has already been taken"
+            ]
+          }
+        
+        after do |example|
+          example.metadata[:response][:content] = {
+            'application/json' => {
+              example: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
+        end
+        run_test!
+      end
     end
   end
 
@@ -57,30 +86,25 @@ RSpec.describe 'api/v1/days', type: :request do
       tags 'Days'
       response(200, 'successful') do
         let(:id) { '123' }
+        let!(:day) { create(:day, id: id) }
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
         run_test!
       end
     end
 
     delete('delete day') do
       tags 'Days'
-      response(200, 'successful') do
+      response(204, 'no content') do
         let(:id) { '123' }
+        let!(:day) { create(:day, id: id) }
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
+        run_test!
+      end
+
+      response(422, 'unprocessable entity') do
+        let(:id) { '123' }
+        let!(:day) { create(:day, id: '122') }
+
         run_test!
       end
     end

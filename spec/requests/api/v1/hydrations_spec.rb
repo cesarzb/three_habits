@@ -6,15 +6,16 @@ RSpec.describe 'api/v1/hydrations', type: :request do
 
     post('create hydration') do
       tags 'Hydrations'
-      response(200, 'successful') do
+      consumes 'application/json'
+      parameter name: :hydration, in: :body, schema: {
+        type: :object,
+        properties: {
+          cups: { type: :integer }
+        }
+      }
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
+      response(201, 'created') do
+        let!(:hydration) { { cups: 3 } } 
         run_test!
       end
     end
@@ -27,15 +28,10 @@ RSpec.describe 'api/v1/hydrations', type: :request do
     patch('update hydration') do
       tags 'Hydrations'
       response(200, 'successful') do
+        let(:day) { create(:day) }
         let(:id) { '123' }
+        let!(:hydration) { create(:hydration, id: id, day: day, cups: 3) }
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
         run_test!
       end
     end
@@ -43,31 +39,21 @@ RSpec.describe 'api/v1/hydrations', type: :request do
     put('update hydration') do
       tags 'Hydrations'
       response(200, 'successful') do
+        let(:day) { create(:day) }
         let(:id) { '123' }
+        let!(:hydration) { create(:hydration, id: id, day: day, cups: 3) }
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
         run_test!
       end
     end
 
     delete('delete hydration') do
       tags 'Hydrations'
-      response(200, 'successful') do
+      response(204, 'no content') do
+        let(:day) { create(:day) }
         let(:id) { '123' }
+        let!(:hydration) { create(:hydration, id: id, day: day) }
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
         run_test!
       end
     end

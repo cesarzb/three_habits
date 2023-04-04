@@ -2,6 +2,7 @@ module Api
   module V1
     class DaysController < ApplicationController
       before_action :set_day, only: %i[ show update destroy ]
+      rescue_from ActiveRecord::RecordNotFound, :with => :not_found_error
 
       # GET /days
       def index
@@ -28,14 +29,18 @@ module Api
 
       # DELETE /days/1
       def destroy
-        @day.destroy
+        @day.destroy if @day
+      end
+      
+      private
+      # Use callbacks to share common setup or constraints between actions.
+      def set_day
+        @day = Day.find(params[:id])
       end
 
-      private
-        # Use callbacks to share common setup or constraints between actions.
-        def set_day
-          @day = Day.find(params[:id])
-        end
+      def not_found_error
+        render status: :unprocessable_entity
+      end
     end
   end
 end

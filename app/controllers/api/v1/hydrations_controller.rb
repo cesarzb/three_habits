@@ -1,16 +1,16 @@
 module Api
     module V1
-        class ActivitiesController < ApplicationController
+        class HydrationsController < ApplicationController
             before_action :set_hydration, only: :destroy
             before_action :set_day, only: :create
 
             def create
                 @day = Day.create(date: Time.now.beginning_of_day) unless @day
 
-                @hydration = Hydration.new(day: day, date: Time.now, cups: params[:cups])
+                @hydration = @day.build_hydration(hydration_params)
                 
                 if @hydration.save
-                    render json: @hydration, status: :created, location: @hydration
+                    render json: @hydration, status: :created, location: api_v1_hydration_url(@hydration)
                 else
                     render json: @hydration.errors, status: :unprocessable_entity
                 end
@@ -33,8 +33,6 @@ module Api
             def set_hydration
                 @hydration = Hydration.find(params[:id])
             end
-
-            private
 
             def hydration_params
                 params.require(:hydration).permit(:cups)

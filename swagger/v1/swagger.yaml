@@ -10,7 +10,7 @@ paths:
       tags:
       - Activities
       responses:
-        '200':
+        '201':
           description: successful
   "/api/v1/activities/{id}":
     parameters:
@@ -25,8 +25,8 @@ paths:
       tags:
       - Activities
       responses:
-        '200':
-          description: successful
+        '204':
+          description: no content
   "/api/v1/days":
     get:
       summary: list days
@@ -51,6 +51,15 @@ paths:
                     date: '2023-03-28T22:00:00.000Z'
                     created_at: '2023-03-29T14:10:43.226Z'
                     updated_at: '2023-03-29T14:10:43.226Z'
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              examples:
+                date:
+                  value:
+                    date:
+                    - has already been taken
   "/api/v1/days/{id}":
     parameters:
     - name: id
@@ -71,8 +80,10 @@ paths:
       tags:
       - Days
       responses:
-        '200':
-          description: successful
+        '204':
+          description: no content
+        '422':
+          description: unprocessable entity
   "/api/v1/hydrations":
     post:
       summary: create hydration
@@ -108,16 +119,16 @@ paths:
       tags:
       - Hydrations
       responses:
-        '200':
-          description: successful
+        '204':
+          description: no content
   "/api/v1/sleeps":
     post:
       summary: create sleep
       tags:
       - Sleeps
       responses:
-        '200':
-          description: successful
+        '201':
+          description: created
   "/api/v1/sleeps/{id}":
     parameters:
     - name: id
@@ -131,8 +142,8 @@ paths:
       tags:
       - Sleeps
       responses:
-        '200':
-          description: successful
+        '204':
+          description: no content
 servers:
 - url: http://{defaultHost}
   variables:
