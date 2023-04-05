@@ -35,6 +35,20 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              examples:
+                no_days: {}
+                days:
+                  value:
+                  - id: 4
+                    date: '2023-03-28T22:00:00.000Z'
+                    created_at: '2023-03-29T14:10:43.226Z'
+                    updated_at: '2023-03-29T14:10:43.226Z'
+                  - id: 2
+                    date: '2023-04-04T22:00:00.000Z'
+                    created_at: '2023-04-05T19:41:08.528Z'
+                    updated_at: '2023-04-05T19:41:08.528Z'
     post:
       summary: create day
       tags:
@@ -75,6 +89,15 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              examples:
+                day:
+                  value:
+                    id: 4
+                    date: '2023-03-28T22:00:00.000Z'
+                    created_at: '2023-03-29T14:10:43.226Z'
+                    updated_at: '2023-03-29T14:10:43.226Z'
     delete:
       summary: delete day
       tags:
@@ -82,16 +105,25 @@ paths:
       responses:
         '204':
           description: no content
-        '422':
-          description: unprocessable entity
+        '404':
+          description: not found
   "/api/v1/hydrations":
     post:
       summary: create hydration
       tags:
       - Hydrations
+      parameters: []
       responses:
-        '200':
-          description: successful
+        '201':
+          description: created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cups:
+                  type: integer
   "/api/v1/hydrations/{id}":
     parameters:
     - name: id
@@ -104,16 +136,40 @@ paths:
       summary: update hydration
       tags:
       - Hydrations
+      parameters:
+      - name: id
+        in: path
+        required: true
       responses:
         '200':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cups:
+                  type: integer
     put:
       summary: update hydration
       tags:
       - Hydrations
+      parameters:
+      - name: id
+        in: path
+        required: true
       responses:
         '200':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cups:
+                  type: integer
     delete:
       summary: delete hydration
       tags:

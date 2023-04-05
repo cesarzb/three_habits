@@ -1,7 +1,7 @@
 module Api
     module V1
         class HydrationsController < ApplicationController
-            before_action :set_hydration, only: :destroy
+            before_action :set_hydration, only: %i[ destroy update ]
             before_action :set_day, only: :create
 
             def create
@@ -18,9 +18,9 @@ module Api
 
             def update
                 if @hydration.update(hydration_params)
-                  render json: hydration, status: :ok
+                  render json: @hydration, status: :ok
                 else
-                  render json: { errors: hydration.errors.full_messages }, status: :unprocessable_entity
+                  render json: { errors: @hydration.errors.full_messages }, status: :unprocessable_entity
                 end
               end
 

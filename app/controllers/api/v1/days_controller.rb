@@ -39,7 +39,7 @@ module Api
       end
 
       def not_found_error
-        render status: :unprocessable_entity
+        render status: :not_found
       end
     end
   end
