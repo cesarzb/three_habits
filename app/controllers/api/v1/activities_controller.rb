@@ -3,6 +3,7 @@ module Api
         class ActivitiesController < ApplicationController
             before_action :set_activity, only: :destroy
             before_action :set_day, only: :create
+            rescue_from ActiveRecord::RecordNotFound, :with => :not_found_error
 
             def create
                 @day = Day.create(date: Time.now.beginning_of_day) unless @day
@@ -16,7 +17,7 @@ module Api
             end
 
             def destroy
-                @activity.destroy
+                @activity.destroy if @activity
             end
             
             private

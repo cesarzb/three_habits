@@ -37,10 +37,6 @@ module Api
       def set_day
         @day = Day.find(params[:id])
       end
-
-      def not_found_error
-        render status: :not_found
-      end
     end
   end
 end

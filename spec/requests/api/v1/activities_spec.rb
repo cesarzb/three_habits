@@ -6,7 +6,25 @@ RSpec.describe 'api/v1/activities', type: :request do
     
     post('create activity') do
       tags 'Activities'
+      produces 'application/json'
+
       response(201, 'successful') do
+        schema type: :object,
+          properties: {
+            id: { type: :integer },
+            day_id: { type: :integer},
+            date: { type: :datetime, nullable: false },
+            created_at: { type: :datetime, nullable: false },
+            updated_at: { type: :datetime, nullable: false }
+          }
+
+        example 'application/json', :activity, {
+          "id": 1,
+          "day_id": 3,
+          "date": "2023-04-06T15:17:11.126Z",
+          "created_at": "2023-04-06T15:17:11.136Z",
+          "updated_at": "2023-04-06T15:17:11.136Z"
+        }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -30,6 +48,13 @@ RSpec.describe 'api/v1/activities', type: :request do
         let(:day) { create(:day) }
         let(:id) { '123' }
         let!(:activity) { create(:activity, id: id, day: day) }
+        run_test!
+      end
+
+      response(404, 'not found') do
+        let(:day) { create(:day) }
+        let(:id) { '123' }
+        let!(:activity) { create(:activity, id: 122, day: day) }
         run_test!
       end
     end
