@@ -144,6 +144,25 @@ paths:
       responses:
         '201':
           description: created
+          content:
+            application/json:
+              examples:
+                hydration:
+                  value:
+                    id: 1
+                    cups: 0
+                    created_at: '2023-04-07T19:29:10.893Z'
+                    updated_at: '2023-04-07T19:29:10.893Z'
+                    day_id: 4
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              examples:
+                hydration:
+                  value:
+                    cups:
+                    - must be greater than or equal to 0
       requestBody:
         content:
           application/json:
@@ -171,6 +190,27 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              examples:
+                hydration:
+                  value:
+                    cups: 0
+                    id: 4
+                    created_at: '2023-04-07T19:48:40.535Z'
+                    updated_at: '2023-04-07T19:48:48.921Z'
+                    day_id: 4
+        '404':
+          description: not found
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              examples:
+                hydration:
+                  value:
+                    cups:
+                    - must be greater than or equal to 0
       requestBody:
         content:
           application/json:
@@ -190,6 +230,27 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              examples:
+                hydration:
+                  value:
+                    cups: 0
+                    id: 4
+                    created_at: '2023-04-07T19:48:40.535Z'
+                    updated_at: '2023-04-07T19:48:48.921Z'
+                    day_id: 4
+        '404':
+          description: not found
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              examples:
+                hydration:
+                  value:
+                    cups:
+                    - must be greater than or equal to 0
       requestBody:
         content:
           application/json:
@@ -205,6 +266,8 @@ paths:
       responses:
         '204':
           description: no content
+        '404':
+          description: not found
   "/api/v1/sleeps":
     post:
       summary: create sleep

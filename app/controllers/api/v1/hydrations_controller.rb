@@ -3,6 +3,7 @@ module Api
         class HydrationsController < ApplicationController
             before_action :set_hydration, only: %i[ destroy update ]
             before_action :set_day, only: :create
+            rescue_from ActiveRecord::RecordNotFound, :with => :not_found_error
 
             def create
                 @day = Day.create(date: Time.now.beginning_of_day) unless @day
