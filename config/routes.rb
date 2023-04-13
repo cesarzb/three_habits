@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users, defaults: { format: :json }
+  # devise_for :users, defaults: { format: :json }
+  
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   root to: "api/v1/days#index"
+  devise_for :users, 
+              controllers: {
+                sessions: 'users/sessions', 
+                registrations: 'users/registrations'
+              }
   namespace :api do
     namespace :v1 do
       resources :days, except: :update

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_10_185955) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_12_192042) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_10_185955) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["day_id"], name: "index_activities_on_day_id"
+  end
+
+  create_table "allowlisted_jwts", force: :cascade do |t|
+    t.string "jti", null: false
+    t.string "aud"
+    t.datetime "exp", null: false
+    t.bigint "user_id", null: false
+    t.index ["jti"], name: "index_allowlisted_jwts_on_jti", unique: true
+    t.index ["user_id"], name: "index_allowlisted_jwts_on_user_id"
   end
 
   create_table "days", force: :cascade do |t|
@@ -57,6 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_10_185955) do
   end
 
   add_foreign_key "activities", "days"
+  add_foreign_key "allowlisted_jwts", "users", on_delete: :cascade
   add_foreign_key "hydrations", "days"
   add_foreign_key "sleeps", "days"
 end

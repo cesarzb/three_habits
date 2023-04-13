@@ -2,6 +2,7 @@ module Api
   module V1
     class DaysController < ApplicationController
       before_action :set_day, only: %i[ show update destroy ]
+      before_action :authenticate_user!
       rescue_from ActiveRecord::RecordNotFound, :with => :not_found_error
 
       # GET /days
@@ -36,6 +37,10 @@ module Api
       # Use callbacks to share common setup or constraints between actions.
       def set_day
         @day = Day.find(params[:id])
+      end
+
+      def jwt_not_found
+        render json: { error: 'Unauthorized' }, status: :unauthorized
       end
     end
   end
