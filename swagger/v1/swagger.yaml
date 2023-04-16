@@ -9,6 +9,8 @@ paths:
       summary: create activity
       tags:
       - Activities
+      security:
+      - bearer_auth: []
       responses:
         '201':
           description: successful
@@ -50,6 +52,8 @@ paths:
       summary: delete activity
       tags:
       - Activities
+      security:
+      - bearer_auth: []
       responses:
         '204':
           description: no content
@@ -60,6 +64,8 @@ paths:
       summary: list days
       tags:
       - Days
+      security:
+      - bearer_auth: []
       responses:
         '200':
           description: successful
@@ -81,6 +87,8 @@ paths:
       summary: create day
       tags:
       - Days
+      security:
+      - bearer_auth: []
       responses:
         '201':
           description: created
@@ -114,6 +122,8 @@ paths:
       summary: show day
       tags:
       - Days
+      security:
+      - bearer_auth: []
       responses:
         '200':
           description: successful
@@ -130,6 +140,8 @@ paths:
       summary: delete day
       tags:
       - Days
+      security:
+      - bearer_auth: []
       responses:
         '204':
           description: no content
@@ -140,6 +152,8 @@ paths:
       summary: create hydration
       tags:
       - Hydrations
+      security:
+      - bearer_auth: []
       parameters: []
       responses:
         '201':
@@ -183,6 +197,8 @@ paths:
       summary: update hydration
       tags:
       - Hydrations
+      security:
+      - bearer_auth: []
       parameters:
       - name: id
         in: path
@@ -223,6 +239,8 @@ paths:
       summary: update hydration
       tags:
       - Hydrations
+      security:
+      - bearer_auth: []
       parameters:
       - name: id
         in: path
@@ -263,6 +281,8 @@ paths:
       summary: delete hydration
       tags:
       - Hydrations
+      security:
+      - bearer_auth: []
       responses:
         '204':
           description: no content
@@ -273,6 +293,8 @@ paths:
       summary: create sleep
       tags:
       - Sleeps
+      security:
+      - bearer_auth: []
       parameters: []
       responses:
         '201':
@@ -324,6 +346,8 @@ paths:
       summary: delete sleep
       tags:
       - Sleeps
+      security:
+      - bearer_auth: []
       responses:
         '204':
           description: no content
@@ -334,3 +358,8 @@ servers:
   variables:
     defaultHost:
       default: localhost:3000
+components:
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer

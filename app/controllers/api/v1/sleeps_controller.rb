@@ -3,6 +3,7 @@ module Api
         class SleepsController < ApplicationController
             before_action :set_sleep, only: :destroy
             before_action :set_day, only: :create
+            before_action :authenticate_user!
             rescue_from ActiveRecord::RecordNotFound, :with => :not_found_error
 
             def create

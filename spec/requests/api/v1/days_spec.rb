@@ -3,9 +3,13 @@ require 'swagger_helper'
 RSpec.describe 'api/v1/days', type: :request do
 
   path '/api/v1/days' do
+    let(:user) { create(:user) }
 
     get('list days') do
       tags 'Days'
+      security [ bearer_auth: [] ]
+      let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)["Authorization"] }
+      
       response(200, 'successful') do
         schema type: :array,
           properties: [
@@ -49,6 +53,8 @@ RSpec.describe 'api/v1/days', type: :request do
 
     post('create day') do
       tags 'Days'
+      security [ bearer_auth: [] ]
+      let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)["Authorization"] }
       response(201, 'created') do
         schema type: :object,
           properties: {
@@ -109,9 +115,12 @@ RSpec.describe 'api/v1/days', type: :request do
   path '/api/v1/days/{id}' do
     # You'll want to customize the parameter types...
     parameter name: 'id', in: :path, type: :string, description: 'id'
+    let(:user) { create(:user) }
 
     get('show day') do
       tags 'Days'
+      security [ bearer_auth: [] ]
+      let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)["Authorization"] }
       response(200, 'successful') do
         schema type: :object,
           properties: {
@@ -137,6 +146,8 @@ RSpec.describe 'api/v1/days', type: :request do
 
     delete('delete day') do
       tags 'Days'
+      security [ bearer_auth: [] ]
+      let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)["Authorization"] }
       response(204, 'no content') do
         let(:id) { '123' }
         let!(:day) { create(:day, id: id) }

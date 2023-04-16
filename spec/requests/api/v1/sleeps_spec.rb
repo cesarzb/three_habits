@@ -3,9 +3,12 @@ require 'swagger_helper'
 RSpec.describe 'api/v1/sleeps', type: :request do
 
   path '/api/v1/sleeps' do
+    let(:user) { create(:user) }
 
     post('create sleep') do
       tags 'Sleeps'
+      security [ bearer_auth: [] ]
+      let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)["Authorization"] }
       consumes 'application/json'
       produces 'application/json'
       parameter name: :sleep, in: :body, schema: {
@@ -41,9 +44,12 @@ RSpec.describe 'api/v1/sleeps', type: :request do
   path '/api/v1/sleeps/{id}' do
     # You'll want to customize the parameter types...
     parameter name: 'id', in: :path, type: :string, description: 'id'
+    let(:user) { create(:user) }
 
     delete('delete sleep') do
       tags 'Sleeps'
+      security [ bearer_auth: [] ]
+      let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)["Authorization"] }
       response(204, 'no content') do
         let(:day) { create(:day) }
         let(:id) { '123' }

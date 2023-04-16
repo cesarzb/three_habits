@@ -3,10 +3,13 @@ require 'swagger_helper'
 RSpec.describe 'api/v1/activities', type: :request do
 
   path '/api/v1/activities' do
+    let(:user) { create(:user) }
     
     post('create activity') do
       tags 'Activities'
       produces 'application/json'
+      security [ bearer_auth: [] ]
+      let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)["Authorization"] }
 
       response(201, 'successful') do
         schema type: :object,
@@ -41,9 +44,12 @@ RSpec.describe 'api/v1/activities', type: :request do
   path '/api/v1/activities/{id}' do
     # You'll want to customize the parameter types...
     parameter name: 'id', in: :path, type: :string, description: 'id'
-
+    let(:user) { create(:user) }
+    
     delete('delete activity') do
       tags 'Activities'
+      security [ bearer_auth: [] ]
+      let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)["Authorization"] }
       response(204, 'no content') do
         let(:day) { create(:day) }
         let(:id) { '123' }
