@@ -2,6 +2,36 @@ require 'swagger_helper'
 
 RSpec.describe 'api/v1/days', type: :request do
 
+  # path '/api/v1/return' do
+  #   get('return params') do
+  #     tags 'Users'
+  #           consumes 'application/json'
+  #           parameter name: :signup_data, in: :body, schema: {
+  #             type: :object,
+  #             properties: {
+  #               user: { 
+  #                 type: :object, 
+  #                 properties: {
+  #                   email:              { type: :string, default: 'email@example.com' },
+  #                   password:           { type: :string, default: 'Password1' }
+  #                 },
+  #                 required: [ 'password' ]
+  #               }
+  #             }
+  #           }
+
+  #           response(200, 'successful') do
+  #               let!(:signup_data) { { user: { email: "example@example.com", password: "Password1@" } } }
+
+  #               before do
+  #                   User.create(email: "example@example.com", password: "Password1@")
+  #               end
+
+  #               run_test!
+  #           end
+  #   end
+  # end
+
   path '/api/v1/days' do
     let(:user) { create(:user) }
 

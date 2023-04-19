@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :days, except: :update
+      get 'return', action: :ret, controller: 'days'
       resources :activities, only: %i[ create destroy ]
       resources :sleeps, only: %i[ create destroy ]
       resources :hydrations, only: %i[update create destroy]

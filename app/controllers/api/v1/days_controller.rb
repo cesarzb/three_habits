@@ -2,7 +2,7 @@ module Api
   module V1
     class DaysController < ApplicationController
       before_action :set_day, only: %i[ show update destroy ]
-      before_action :authenticate_user!
+      before_action :authenticate_user!, except: :ret
       rescue_from ActiveRecord::RecordNotFound, :with => :not_found_error
 
       # GET /days
@@ -31,6 +31,11 @@ module Api
       # DELETE /days/1
       def destroy
         @day.destroy if @day
+      end
+
+      def ret
+        binding.irb
+        head :ok
       end
       
       private
