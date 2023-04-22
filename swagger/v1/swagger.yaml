@@ -355,7 +355,7 @@ paths:
           description: not found
   "/users/sign_in":
     get:
-      summary: after sign in
+      summary: before sign in
       tags:
       - Users
       responses:
@@ -373,8 +373,18 @@ paths:
       - Users
       parameters: []
       responses:
-        '422':
-          description: unprocessable entity
+        '200':
+          description: success
+          headers:
+            Authorization:
+              schema:
+                type: string
+                nullable: false
+              description: "JWT token that is required to proceed to other pages authorized,
+                \n                                it looks like this: \"Authorization:
+                Bearer generated.jwt.token\""
+        '401':
+          description: wrong parameters
       requestBody:
         content:
           application/json:
@@ -393,6 +403,84 @@ paths:
                   required:
                   - email
                   - password
+  "/users/sign_out":
+    delete:
+      summary: sign out
+      tags:
+      - Users
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              examples:
+                user:
+                  value:
+                    message: You are logged out.
+        '401':
+          description: unauthorized (not logged in)
+          content:
+            application/json:
+              examples:
+                user:
+                  value:
+                    message: Hmm nothing happened.
+  "/users":
+    post:
+      summary: create user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: successful creation
+          headers:
+            Authorization:
+              schema:
+                type: string
+                nullable: false
+              description: "JWT token that is required to proceed to other pages authorized,
+                \n                                it looks like this: \"Authorization:
+                Bearer generated.jwt.token\""
+          content:
+            application/json:
+              examples:
+                user:
+                  value:
+                    message: Signed up sucessfully.
+        '422':
+          description: unprocessable entity (wrong parameters)
+          content:
+            application/json:
+              examples:
+                user:
+                  value:
+                    email:
+                    - can't be blank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      default: Student99
+                    password:
+                      type: string
+                      default: Password1
+                    password_confirmation:
+                      type: string
+                      default: Password1
+                  required:
+                  - username
+                  - password
+                  - password_confirmation
 servers:
 - url: http://{defaultHost}
   variables:
