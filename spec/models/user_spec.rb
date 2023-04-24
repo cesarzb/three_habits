@@ -29,6 +29,13 @@ RSpec.describe User, type: :model do
       second_user = User.create(user_params.merge(email: "aaaaaaaa"))
       expect(user).not_to be_valid
     end
+
+    it "has to be unique" do
+      user = User.create(user_params.merge(email: "not@unique.com"))
+      other_user = User.create(user_params.merge(email: "not@unique.com"))
+
+      expect(other_user).not_to be_valid
+    end
   end
 
   context "password" do

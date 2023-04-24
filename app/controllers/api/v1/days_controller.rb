@@ -19,7 +19,7 @@ module Api
 
       # POST /days
       def create
-        @day = Day.new(date: Time.now.beginning_of_day)
+        @day = Day.new(date: Time.now.beginning_of_day, user: current_user)
 
         if @day.save
           render json: @day, status: :created, location: api_v1_day_url(@day)

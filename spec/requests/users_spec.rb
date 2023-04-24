@@ -4,23 +4,6 @@ RSpec.describe 'users', type: :request do
     path '/users/sign_in' do
         let!(:created_user) { create(:user) }
 
-        get('before sign in') do
-            tags 'Users'
-            
-            response(200, 'successful') do
-                schema type: :object, 
-                    properties: {
-                        message: { type: :string },
-                    }
-
-                example 'application/json', :user, {
-                    message: "You are logged in."
-                }
-
-                run_test!
-            end
-        end
-
         post('sign in') do
             tags 'Users'
             consumes 'application/json'

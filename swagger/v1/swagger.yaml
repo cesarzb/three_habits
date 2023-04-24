@@ -354,19 +354,6 @@ paths:
         '404':
           description: not found
   "/users/sign_in":
-    get:
-      summary: before sign in
-      tags:
-      - Users
-      responses:
-        '200':
-          description: successful
-          content:
-            application/json:
-              examples:
-                user:
-                  value:
-                    message: You are logged in.
     post:
       summary: sign in
       tags:
