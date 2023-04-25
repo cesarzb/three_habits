@@ -112,7 +112,7 @@ RSpec.describe 'api/v1/days', type: :request do
       end
 
       response(422, 'unprocessable entity') do
-        let!(:day) { create(:day) }
+        let!(:day) { create(:day, user: user) }
 
         schema type: :object,
           properties: {
@@ -168,7 +168,7 @@ RSpec.describe 'api/v1/days', type: :request do
         }
 
         let(:id) { '123' }
-        let!(:day) { create(:day, id: id) }
+        let!(:day) { create(:day, id: id, user: user) }
 
         run_test!
       end
@@ -180,14 +180,14 @@ RSpec.describe 'api/v1/days', type: :request do
       let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)["Authorization"] }
       response(204, 'no content') do
         let(:id) { '123' }
-        let!(:day) { create(:day, id: id) }
+        let!(:day) { create(:day, id: id, user: user) }
 
         run_test!
       end
 
       response(404, 'not found') do
         let(:id) { '123' }
-        let!(:day) { create(:day, id: '122') }
+        let!(:day) { create(:day, id: '122', user: user) }
 
         run_test!
       end

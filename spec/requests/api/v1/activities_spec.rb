@@ -51,14 +51,14 @@ RSpec.describe 'api/v1/activities', type: :request do
       security [ bearer_auth: [] ]
       let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)["Authorization"] }
       response(204, 'no content') do
-        let(:day) { create(:day) }
+        let(:day) { create(:day, user: user) }
         let(:id) { '123' }
         let!(:activity) { create(:activity, id: id, day: day) }
         run_test!
       end
 
       response(404, 'not found') do
-        let(:day) { create(:day) }
+        let(:day) { create(:day, user: user) }
         let(:id) { '123' }
         let!(:activity) { create(:activity, id: 122, day: day) }
         run_test!

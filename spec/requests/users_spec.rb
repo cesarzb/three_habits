@@ -94,7 +94,7 @@ RSpec.describe 'users', type: :request do
               }
             
             response(200, 'successful creation') do
-                let!(:signup_data) { { user: attributes_for(:user) } }
+                let(:signup_data) { { user: attributes_for(:user) } }
 
                 schema type: :object,
                 properties: {
@@ -109,12 +109,21 @@ RSpec.describe 'users', type: :request do
                     "message": "Signed up sucessfully."
                 }
 
-                run_test!
+                it 'returns created status for correct email and password' do
+                    post '/users', params: signup_data
+
+                    expect(response).to have_http_status(:ok)
+                end
+
+                it "creates new user for correct email and password" do
+                    expect{
+                        post '/users', params: signup_data
+                    }.to change(User, :count).by(1)
+                end
             end
 
             response(422, 'unprocessable entity (wrong parameters)') do
                 let!(:signup_data) { { email: 'email@example.com' } }
-
                 schema type: :object,
                 properties: {
                 email: {
@@ -131,11 +140,18 @@ RSpec.describe 'users', type: :request do
                 ]
                 }
                 
-                run_test!
+                it 'returns unprocessable entity status for incorrect email or password' do
+                    post '/users', params: signup_data
+
+                    expect(response).to have_http_status(:unprocessable_entity)
+                end
+
+                it "creates new user for correct email and password" do
+                    expect{
+                        post '/users', params: signup_data
+                    }.not_to change(User, :count)
+                end
             end
         end
     end
-
-    # path '/users/cancel' do
-    # end
 end

@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Sleep, type: :model do
-  let(:day) { create(:day) }
+  let(:user) { create(:user) }
+  let(:day) { create(:day, user: user) }
   
   it "is valid for valid attributes" do
     expect(Sleep.new(day: day, length: "08:15")).to be_valid

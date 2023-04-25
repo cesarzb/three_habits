@@ -7,7 +7,7 @@ module Api
             rescue_from ActiveRecord::RecordNotFound, :with => :not_found_error
 
             def create
-                @day = Day.create(date: Time.now.beginning_of_day) unless @day
+                @day = Day.create(date: Time.now.beginning_of_day, user: current_user) unless @day
                 @activity = Activity.new(day: @day, date: Time.now)
                 
                 if @activity.save

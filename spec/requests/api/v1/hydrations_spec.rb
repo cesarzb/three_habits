@@ -104,7 +104,7 @@ RSpec.describe 'api/v1/hydrations', type: :request do
         }
 
         before do
-          day = create(:day)
+          day = create(:day, user: user)
           create(:hydration, id: id, day: day, cups: 3)
         end
 
@@ -116,7 +116,7 @@ RSpec.describe 'api/v1/hydrations', type: :request do
         let!(:hydration) { { cups: 8 } }
 
         before do
-          day = create(:day)
+          day = create(:day, user: user)
           create(:hydration, id: 122, day: day, cups: 3)
         end
 
@@ -144,7 +144,7 @@ RSpec.describe 'api/v1/hydrations', type: :request do
           }
 
         before do
-          day = create(:day)
+          day = create(:day, user: user)
           create(:hydration, id: id, day: day, cups: 3)
         end
 
@@ -188,7 +188,7 @@ RSpec.describe 'api/v1/hydrations', type: :request do
         }
 
         before do
-          day = create(:day)
+          day = create(:day, user: user)
           create(:hydration, id: id, day: day, cups: 3)
         end
 
@@ -200,7 +200,7 @@ RSpec.describe 'api/v1/hydrations', type: :request do
         let!(:hydration) { { cups: 8 } }
 
         before do
-          day = create(:day)
+          day = create(:day, user: user)
           create(:hydration, id: 122, day: day, cups: 3)
         end
 
@@ -228,7 +228,7 @@ RSpec.describe 'api/v1/hydrations', type: :request do
           }
 
         before do
-          day = create(:day)
+          day = create(:day, user: user)
           create(:hydration, id: id, day: day, cups: 3)
         end
 
@@ -241,7 +241,7 @@ RSpec.describe 'api/v1/hydrations', type: :request do
       security [ bearer_auth: [] ]
       let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)["Authorization"] }
       response(204, 'no content') do
-        let(:day) { create(:day) }
+        let(:day) { create(:day, user: user) }
         let(:id) { '123' }
         let!(:hydration) { create(:hydration, id: id, day: day) }
 
@@ -249,7 +249,7 @@ RSpec.describe 'api/v1/hydrations', type: :request do
       end
 
       response(404, 'not found') do
-        let(:day) { create(:day) }
+        let(:day) { create(:day, user: user) }
         let(:id) { '123' }
         let!(:hydration) { create(:hydration, id: '122', day: day) }
 
