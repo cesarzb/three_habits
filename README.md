@@ -1,8 +1,8 @@
 # README
-This is API-only Ruby on Rails application which is backend for my college project. 
-Authentication - devise and devise-jwt gems. 
-Tests and documentation - rswag gem. 
-Database - PostgreSQL.
+This is API-only Ruby on Rails application which is backend for my college project.  
+Authentication - devise and devise-jwt gems.  
+Tests and documentation - rswag gem.  
+Database - PostgreSQL.  
 
 Ruby version: 3.1.2
 Rails version: ~> 7.0.4
