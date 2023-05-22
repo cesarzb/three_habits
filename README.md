@@ -1,24 +1,26 @@
 # README
+This is API-only Ruby on Rails application which is backend for my college project. 
+Authentication - devise and devise-jwt gems. 
+Tests and documentation - rswag gem. 
+Database - PostgreSQL.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby version: 3.1.2
+Rails version: ~> 7.0.4
 
-Things you may want to cover:
+First clone the repository to you local machine, then use the following commands:
 
-* Ruby version
+bundle install
 
-* System dependencies
+rails db:create
 
-* Configuration
+rails db:migrate
 
-* Database creation
+rails s
 
-* Database initialization
+To access documentation go to
 
-* How to run the test suite
+http://localhost:3000/api-docs
 
-* Services (job queues, cache servers, search engines, etc.)
+To run the test suite use command
 
-* Deployment instructions
-
-* ...
+rspec
