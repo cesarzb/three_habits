@@ -8,8 +8,7 @@ module Api
 
             def create
                 @day = Day.create(date: Time.now.beginning_of_day, user: current_user) unless @day
-                @sleep = @day.build_sleep(sleep_params)
-                # binding.irb
+                @sleep = Sleep.new(sleep_params.merge(day: @day))
 
                 if @sleep.save
                     render json: @sleep, status: :created, location: api_v1_sleep_path(@sleep)

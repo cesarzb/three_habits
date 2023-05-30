@@ -9,7 +9,7 @@ module Api
             def create
                 @day = Day.create(date: Time.now.beginning_of_day, user: current_user) unless @day
 
-                @hydration = @day.build_hydration(hydration_params)
+                @hydration = Hydration.new(hydration_params.merge(day: @day))
                 
                 if @hydration.save
                     render json: @hydration, status: :created, location: api_v1_hydration_url(@hydration)

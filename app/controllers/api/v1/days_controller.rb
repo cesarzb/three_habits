@@ -7,14 +7,14 @@ module Api
 
       # GET /days
       def index
-        @days = Day.all
+        @days = Day.all.where(user_id: current_user.id).order(id: :desc)
 
         render json: @days
       end
 
       # GET /days/1
       def show
-        render json: @day
+        render json: { day: @day, activities: @day.activities, sleep: @day.sleep, hydration: @day.hydration } 
       end
 
       # POST /days
@@ -42,6 +42,7 @@ module Api
       # Use callbacks to share common setup or constraints between actions.
       def set_day
         @day = Day.find(params[:id])
+        render json: { error: 'Unauthorized' }, status: :unauthorized unless @day.user_id == current_user.id
       end
 
       def jwt_not_found
