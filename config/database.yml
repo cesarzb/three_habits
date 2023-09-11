@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: three_habits_production
+  database: threehabits-db
   username: three_habits
   password: <%= ENV["THREE_HABITS_DATABASE_PASSWORD"] %>

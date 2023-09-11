@@ -88,6 +88,8 @@ GEM
       devise (~> 4.0)
       warden-jwt_auth (~> 0.6)
     diff-lcs (1.5.0)
+    dockerfile-rails (1.5.4)
+      rails
     dry-auto_inject (1.0.1)
       dry-core (~> 1.0)
       zeitwerk (~> 2.6)
@@ -133,6 +135,8 @@ GEM
       net-protocol
     nio4r (2.5.8)
     nokogiri (1.13.9-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     pg (1.4.4)
@@ -229,12 +233,14 @@ GEM
 
 PLATFORMS
   x86_64-darwin-19
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap
   debug
   devise
   devise-jwt
+  dockerfile-rails (>= 1.5)
   factory_bot_rails
   pg (~> 1.1)
   pry (~> 0.13.1)

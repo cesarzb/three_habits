@@ -314,7 +314,7 @@ Devise.setup do |config|
   config.navigational_formats = []
 
   config.jwt do |jwt|
-    jwt.secret = Rails.application.credentials[:jwt_secret_key]
+      jwt.secret = Rails.env.production? ? ENV['JWT_SECRET_KEY'] : Rails.application.credentials[:jwt_secret_key]
     jwt.dispatch_requests = [
       ['POST', %r{^/signin$}],
     ]
